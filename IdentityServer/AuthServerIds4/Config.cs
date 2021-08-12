@@ -4,8 +4,11 @@
 
 using IdentityServer4;
 using IdentityServer4.Models;
+using IdentityServer4.Test;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace AuthServerIds4
 {
@@ -15,6 +18,8 @@ namespace AuthServerIds4
         {
             new ApiResource("resource_catalog"){Scopes={"catalog_fullpermission"}},
             new ApiResource("photo_stock_fullpermission"){Scopes={"catalog_fullpermission"}},
+            //new ApiResource("resource_discount"){Scopes={"discount_fullpermission","discount_read","discount_write"}},
+            new ApiResource("resource_discount"){Scopes={"discount_fullpermission"}},
             new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
         };
 
@@ -32,6 +37,9 @@ namespace AuthServerIds4
             {
                 new ApiScope("catalog_fullpermission","Catalog API için full erişim"),
                 new ApiScope("photo_fullpermission","Photo API için full erişim"),
+                new ApiScope("discount_fullpermission","Discount API için full erişim"),
+                new ApiScope("discount_read","Discount API için full erişim"),
+                new ApiScope("discount_write","Discount API için full erişim"),
                 new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
             };
 
@@ -53,7 +61,7 @@ namespace AuthServerIds4
                     AllowOfflineAccess = true,
                     ClientSecrets = {new Secret("secret".Sha256())},
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                    AllowedScopes = { IdentityServerConstants.StandardScopes.OpenId, IdentityServerConstants.StandardScopes.Email ,
+                    AllowedScopes = { "discount_fullpermission",IdentityServerConstants.StandardScopes.OpenId, IdentityServerConstants.StandardScopes.Email ,
                     IdentityServerConstants.StandardScopes.Profile,IdentityServerConstants.StandardScopes.OfflineAccess,"roles",
                     IdentityServerConstants.LocalApi.ScopeName},
                     AccessTokenLifetime = 1*60*60,
@@ -64,20 +72,20 @@ namespace AuthServerIds4
                 new Client
                 {
                     ClientName = "Angular-Client",
-                    ClientId = "angular-client",
+                    ClientId = "AngularClient",
+                    RequireClientSecret = false,
                     AllowedGrantTypes = GrantTypes.Code,
                     RequirePkce = true,
-                    AllowAccessTokensViaBrowser = true,
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "email"
+                        "email",
+                        "roles"
                     },
-                    RequireClientSecret = false,
-                    RequireConsent = false,
-                    AccessTokenLifetime = 600
+                    AccessTokenLifetime = 70
                 }
             };
+
     }
 }

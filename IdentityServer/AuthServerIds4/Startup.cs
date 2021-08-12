@@ -1,8 +1,4 @@
-﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-
-
-using IdentityServer4;
+﻿using IdentityServer4;
 using AuthServerIds4.Data;
 using AuthServerIds4.Models;
 using Microsoft.AspNetCore.Builder;
@@ -73,20 +69,6 @@ namespace AuthServerIds4
                     options.ClientSecret = "copy client secret from Google here";
                 });
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowAllOrigins",
-                    builder =>
-                    {
-                        builder
-                            .AllowCredentials()
-                            .WithOrigins(
-                                "http://localhost:4200")
-                            .SetIsOriginAllowedToAllowWildcardSubdomains()
-                            .AllowAnyHeader()
-                            .AllowAnyMethod();
-                    });
-            });
         }
 
         public void Configure(IApplicationBuilder app)
@@ -98,8 +80,6 @@ namespace AuthServerIds4
             }
 
             app.UseStaticFiles();
-
-            app.UseCors("AllowAllOrigins");
 
             app.UseRouting();
             app.UseIdentityServer();
