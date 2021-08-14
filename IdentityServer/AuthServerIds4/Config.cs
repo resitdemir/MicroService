@@ -74,16 +74,14 @@ namespace AuthServerIds4
                     ClientName = "Angular-Client",
                     ClientId = "AngularClient",
                     RequireClientSecret = false,
-                    AllowedGrantTypes = GrantTypes.Code,
-                    RequirePkce = true,
-                    AllowedScopes =
-                    {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
-                        "email",
-                        "roles"
-                    },
-                    AccessTokenLifetime = 70
+                    AllowOfflineAccess = true,
+                    ClientSecrets = {new Secret("secrett".Sha256())},
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    AllowedCorsOrigins = new [] { "http://localhost:4200/" },
+                    AllowedScopes = { "discount_fullpermission",IdentityServerConstants.StandardScopes.OpenId, IdentityServerConstants.StandardScopes.Email ,
+                    IdentityServerConstants.StandardScopes.Profile,IdentityServerConstants.StandardScopes.OfflineAccess,"roles",
+                    IdentityServerConstants.LocalApi.ScopeName},
+                     AccessTokenLifetime = 1*60*60
                 }
             };
 

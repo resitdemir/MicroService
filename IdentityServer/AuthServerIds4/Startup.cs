@@ -9,6 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AuthServerIds4.Services;
+using IdentityServer4.Test;
+using System.Security.Claims;
+using System.Collections.Generic;
 
 namespace AuthServerIds4
 {
@@ -50,6 +53,20 @@ namespace AuthServerIds4
                 .AddInMemoryApiResources(Config.ApiResources)
                 .AddInMemoryApiScopes(Config.ApiScopes)
                 .AddInMemoryClients(Config.Clients)
+                .AddTestUsers(new List<TestUser>
+                {
+                    new TestUser
+                    {
+                        SubjectId = "1",
+                        Username = "user",
+                        Password = "1234",
+                        Claims = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.Name, "Test User"),
+                            new Claim(ClaimTypes.Email, "email@mail.com")
+                        }
+                    }
+                })
                 .AddAspNetIdentity<ApplicationUser>();
 
             builder.AddResourceOwnerValidator<IdentityResourceOwnerPasswordValidator>();
