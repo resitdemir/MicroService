@@ -1,1 +1,10 @@
-<p>discount works!</p>
+<div class="row">
+    <div class="col">
+        <h1>My pets list</h1>
+        <ul>
+            <li *ngFor="let pet of discount">
+                {{pet.code}} {{pet.userId}}
+            </li>
+        </ul>
+    </div>
+</div>
