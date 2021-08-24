@@ -21,8 +21,7 @@ namespace Order.Application.Consumer
 
         public async Task Consume(ConsumeContext<CreateOrderMessageCommand> context)
         {
-            var newAddress = new Address(context.Message.Province, context.Message.Districh,
-                context.Message.Street, context.Message.ZipCode, context.Message.Line);
+            var newAddress = new Domain.OrderAggregate.Address(context.Message.Province, context.Message.Districh, context.Message.Street, context.Message.ZipCode, context.Message.Line);
 
             Domain.OrderAggregate.Order order = new Domain.OrderAggregate.Order(context.Message.BuyerId, newAddress);
 
@@ -34,7 +33,6 @@ namespace Order.Application.Consumer
             await _orderDbContext.Orders.AddAsync(order);
 
             await _orderDbContext.SaveChangesAsync();
-
         }
     }
 }

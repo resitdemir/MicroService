@@ -37,21 +37,23 @@ namespace Order.API
         {
             services.AddMassTransit(x =>
             {
+                x.AddConsumer<CreateOrderMessageCommandConsumer>();
+                // Default Port : 5672
                 x.UsingRabbitMq((context, cfg) =>
                 {
-                    x.AddConsumer<CreateOrderMessageCommandConsumer>();
                     cfg.Host(Configuration["RabbitMQUrl"], "/", host =>
                     {
-                        host.Username("guest"); // default port 5672
+                        host.Username("guest");
                         host.Password("guest");
                     });
 
                     cfg.ReceiveEndpoint("create-order-service", e =>
-                     {
-                         e.ConfigureConsumer<CreateOrderMessageCommandConsumer>(context);
-                     });
+                    {
+                        e.ConfigureConsumer<CreateOrderMessageCommandConsumer>(context);
+                    });
                 });
             });
+
             services.AddMassTransitHostedService();
 
             var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
