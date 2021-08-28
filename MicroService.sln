@@ -27,11 +27,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Order.Domain.Core", "Order\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Order.Infrastructure", "Order\Order.Infrastructure\Order.Infrastructure.csproj", "{987D6DC8-27D5-442E-9C0F-36D2984ED439}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakePayment", "FakePayment\FakePayment.csproj", "{FB0D0095-EFD7-4E84-AA59-A0965A4E881D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FakePayment", "FakePayment\FakePayment.csproj", "{FB0D0095-EFD7-4E84-AA59-A0965A4E881D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateways", "Gateways", "{0F23B682-05A3-4C0B-926C-2F1CAB0B5F7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateway", "Gateway\Gateway.csproj", "{6D263E0A-3A44-40DF-8774-7702BC5F25D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateway", "Gateway\Gateway.csproj", "{6D263E0A-3A44-40DF-8774-7702BC5F25D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket", "Basket\Basket.csproj", "{6D39DD8A-AAE8-4F46-8745-860A5C2394EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +85,10 @@ Global
 		{6D263E0A-3A44-40DF-8774-7702BC5F25D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D263E0A-3A44-40DF-8774-7702BC5F25D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D263E0A-3A44-40DF-8774-7702BC5F25D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D39DD8A-AAE8-4F46-8745-860A5C2394EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D39DD8A-AAE8-4F46-8745-860A5C2394EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D39DD8A-AAE8-4F46-8745-860A5C2394EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D39DD8A-AAE8-4F46-8745-860A5C2394EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
