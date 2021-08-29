@@ -59,7 +59,6 @@ namespace Catalog
             {
                 options.Filters.Add(new AuthorizeFilter());
             });
-            services.AddControllers();
 
             services.Configure<DatabaseSettings>(Configuration.GetSection("DatabaseSettings"));
             services.AddSingleton<IDatabaseSettings>(sp =>
