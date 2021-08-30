@@ -50,26 +50,13 @@ namespace AuthServerIds4
                 options.EmitStaticAudienceClaim = true;
             })
                 .AddInMemoryIdentityResources(Config.IdentityResources)
-                .AddInMemoryApiResources(Config.ApiResources)
+               .AddInMemoryApiResources(Config.ApiResources)
                 .AddInMemoryApiScopes(Config.ApiScopes)
                 .AddInMemoryClients(Config.Clients)
-                .AddTestUsers(new List<TestUser>
-                {
-                    new TestUser
-                    {
-                        SubjectId = "1",
-                        Username = "user",
-                        Password = "1234",
-                        Claims = new List<Claim>
-                        {
-                            new Claim(ClaimTypes.Name, "Test User"),
-                            new Claim(ClaimTypes.Email, "email@mail.com")
-                        }
-                    }
-                })
                 .AddAspNetIdentity<ApplicationUser>();
 
             builder.AddResourceOwnerValidator<IdentityResourceOwnerPasswordValidator>();
+            builder.AddExtensionGrantValidator<TokenExchangeExtensionsGrantValidator>();
 
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
@@ -85,7 +72,6 @@ namespace AuthServerIds4
                     options.ClientId = "copy client ID from Google here";
                     options.ClientSecret = "copy client secret from Google here";
                 });
-
         }
 
         public void Configure(IApplicationBuilder app)

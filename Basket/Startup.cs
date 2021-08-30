@@ -37,7 +37,7 @@ namespace Basket
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
-                options.Authority = Configuration["IdentityServerURl"];
+                options.Authority = Configuration["IdentityServerURL"];
                 options.Audience = "resource_basket";
                 options.RequireHttpsMetadata = false;
             });
@@ -46,17 +46,21 @@ namespace Basket
             services.AddScoped<ISharedIdentityService, SharedIdentityService>();
             services.AddScoped<IBasketService, BasketService>();
             services.Configure<RedisSettings>(Configuration.GetSection("RedisSettings"));
+
             services.AddSingleton<RedisService>(sp =>
             {
                 var redisSettings = sp.GetRequiredService<IOptions<RedisSettings>>().Value;
+
                 var redis = new RedisService(redisSettings.Host, redisSettings.Port);
+
                 redis.Connect();
+
                 return redis;
             });
 
-            services.AddControllers(options =>
+            services.AddControllers(opt =>
             {
-                options.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
+                opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
             });
             services.AddSwaggerGen(c =>
             {

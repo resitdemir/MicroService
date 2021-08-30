@@ -9,8 +9,10 @@ namespace Basket.Services
     public class RedisService
     {
         private readonly string _host;
+
         private readonly int _port;
-        private ConnectionMultiplexer _ConnectionMultiplexer; 
+
+        private ConnectionMultiplexer _ConnectionMultiplexer;
 
         public RedisService(string host, int port)
         {
