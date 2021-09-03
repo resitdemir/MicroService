@@ -58,9 +58,9 @@ namespace AuthServerIds4
                         userManager.CreateAsync(new ApplicationUser
                         {
                             UserName = "resitdemir",
-                            Email = "resitdemir@gmail.com",
+                            Email = "hayalet.gmail.com",
                             City = "Antep"
-                        }).Wait();
+                        }, "Password12*").Wait();
                     }
                 } 
 

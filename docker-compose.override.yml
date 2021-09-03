@@ -3,26 +3,26 @@ services:
   catalogdb:
     container_name: catalogdb
     restart: always
-    ports: 
+    ports:
       - "27017:27017"
-    volumes: 
+    volumes:
       - catalogdb_volume:/data/db
   basketdb:
     container_name: basketdb
     restart: always
     ports: 
       - "6379:6379"
-  discount:
+  discountdb:
     container_name: discountdb
     restart: always
-    ports: 
+    ports:
       - "5432:5432"
-    volumes: 
+    volumes:
       - discount_volume:/var/lib/postgresql/data
-    environment: 
+    environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=Password12*
-      - POSTGRES_DB=discountdb 
+      - POSTGRES_DB=discountdb
   identitydb:
     container_name: identitydb
     restart: always
@@ -51,7 +51,7 @@ services:
       - "15672:15672"
   catalog.api:
     container_name: catalog.api
-    environment: 
+    environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - RabbitMQUrl=rabbitmq
       - IdentityServerURL=http://identityserver.api
@@ -62,6 +62,7 @@ services:
       - catalogdb
   identityserver.api:
     container_name: identityserver.api
+    restart: on-failure
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "ConnectionStrings:DefaultConnection=Server=identitydb,1433;Database=IdentityDb; User=sa; Password=Password12*"
@@ -110,5 +111,12 @@ services:
       - "5012:80"
     depends_on:
       - orderdb
+  gateway.api:
+    container_name: gateway.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - IdentityServerURL=http://identityserver.api
+    ports:
+      - "5000:80"
 
     
