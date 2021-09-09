@@ -1,3 +1,5 @@
+using FakePayment.Extensions;
+using FakePayment.Handlers;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -37,8 +39,8 @@ namespace FakePayment
                     cfg.Host(Configuration["RabbitMQUrl"], "/", host =>
                       {
                           host.Username("guest"); // default port 5672
-                          host.Password("guest"); 
-                      }); 
+                          host.Password("guest");
+                      });
                 });
             });
 
@@ -57,6 +59,7 @@ namespace FakePayment
             {
                 opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
             });
+            //services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "FakePayment", Version = "v1" });
@@ -75,12 +78,15 @@ namespace FakePayment
 
             app.UseRouting();
 
+            app.Payment();
+
             app.UseAuthorization();
             app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.Map("ispayment", new PaymentHandler().Handler());
             });
         }
     }
