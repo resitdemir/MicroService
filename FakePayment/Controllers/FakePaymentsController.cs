@@ -2,6 +2,7 @@
 using MassTransit;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Shared.ControllerBases;
 using Shared.Messages;
 using Shared.Response;
@@ -17,10 +18,12 @@ namespace FakePayment.Controllers
     public class FakePaymentsController : CustomBaseController
     {
         private readonly ISendEndpointProvider _sendEndPointProvider;
+        private MailInfo _mailInfo;
 
-        public FakePaymentsController(ISendEndpointProvider sendEndPointProvider)
+        public FakePaymentsController(ISendEndpointProvider sendEndPointProvider,IOptions<MailInfo> mailInfo)
         {
             _sendEndPointProvider = sendEndPointProvider;
+            _mailInfo = mailInfo.Value;
         }
 
         [HttpPost]

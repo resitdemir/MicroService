@@ -1,5 +1,6 @@
 using FakePayment.Extensions;
 using FakePayment.Handlers;
+using FakePayment.Models;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -59,6 +60,7 @@ namespace FakePayment
             {
                 opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
             });
+            services.Configure<MailInfo>(Configuration.GetSection("MailInfo"));
             //services.AddControllers();
             services.AddSwaggerGen(c =>
             {
